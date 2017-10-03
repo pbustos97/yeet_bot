@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, 'D:/Daniel/Documents/Discord/bot_ids')
 
 import yeet_bot_id
-from yeet_bot_id import yeet_id
+from yeet_bot_id import yeet_token
 import discord
 import asyncio
 import random
@@ -27,4 +27,4 @@ async def on_message(message):
         await client.send_message(message.channel, 'yeet')
     elif message.content.startswith('!ting'):
         await client.send_message(message.channel, 'the ting go skrrra! pa pa ka ka ka!')
-client.run(yeet_id)
+client.run(yeet_token)
