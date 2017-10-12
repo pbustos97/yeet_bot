@@ -1,19 +1,11 @@
-import time
-import webbrowser
 import asyncio
-import random
-import pickle
-import os
-import sys
 import discord
 from discord.ext import commands
+import sys
 sys.path.insert(0, 'D:/Daniel/Documents/Discord/bot_ids')
 
 import yeet_bot_id
 from yeet_bot_id import yeet_token
-
-client = discord.Client()
-bot_prefix = '!'
 
 if not discord.opus.is_loaded():
     # the 'opus' library here is opus.dll on windows
@@ -22,6 +14,7 @@ if not discord.opus.is_loaded():
     # opus library is located in and with the proper filename.
     # note that on windows this DLL is automatically provided for you
     discord.opus.load_opus('opus')
+
 
 class VoiceEntry:
     def __init__(self, message, player):
@@ -36,7 +29,6 @@ class VoiceEntry:
             fmt = fmt + ' [length: {0[0]}m {0[1]}s]'.format(divmod(duration, 60))
         return fmt.format(self.player, self.requester)
 
-    
 class VoiceState:
     def __init__(self, bot):
         self.current = None
@@ -105,46 +97,91 @@ class Music:
                 pass
 
     @commands.command(pass_context=True, no_pm=True)
-    async def join(self, ctx, *, channel : discord.Channel):
-        """Joins a voice channel."""
-        try:
-            await self.create_voice_client(channel)
-        except discord.ClientException:
-            await self.bot.say('Already in a voice channel...')
-        except discord.InvalidArgument:
-            await self.bot.say('This is not a voice channel...')
+    async def summon(self, ctx):
+        """Summons the bot to join your voice channel."""
+        summoned_channel = ctx.message.author.voice_channel
+        if summoned_channel is None:
+            await self.bot.say('You are not in a voice channel.')
+            return False
+
+        state = self.get_voice_state(ctx.message.server)
+        if state.voice is None:
+            state.voice = await self.bot.join_voice_channel(summoned_channel)
         else:
-            await self.bot.say('Ready to play audio in ' + channel.name)
+            await state.voice.move_to(summoned_channel)
 
-@client.event
-async def on_message(message):
-    if message.content.startswith('!shutup'):
-        await client.send_message(message.channel, '@SVINT#4084 shut up.')
-    elif message.content.startswith('yah'):
-        await client.send_message(message.channel, 'yeet')
-    elif message.content.startswith('!ting'):
-        await client.send_message(message.channel, 'the ting go skrrra! pa pa ka ka ka!')
-    elif message.content.startswith('hol up'):
-        await client.send_message(message.channel, 'we dem boyz')
-        time.sleep(1)
-        await client.send_message(message.channel, 'we makin noise')
-    elif message.content.startswith('stfu'):
-        await client.send_message(message.channel, 'ok')
-    elif message.content.startswith('patriots'):
-        await client.send_message(message.channel, 'play video')
+        return True
 
-@commands.command(pass_context=True, no_pm=True)
-async def kaz(self,ctx,channel: discord.Channel):
-    voice = await bot.join_voice_channel(channel)
-    player = voice.create_ffmpeg_player('kaz.mp3')
-    player.start()
+    @commands.command(pass_context=True, no_pm=True)
+    async def volume(self, ctx, value : int):
+        """Sets the volume of the currently playing song."""
 
+        state = self.get_voice_state(ctx.message.server)
+        if state.is_playing():
+            player = state.player
+            player.volume = value / 100
+            await self.bot.say('Set the volume to {:.0%}'.format(player.volume))
 
-@client.event
-async def onReady():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('--------')
+    @commands.command(pass_context=True, no_pm=True)
+    async def stop(self, ctx):
+        """Stops playing audio and leaves the voice channel.
+        This also clears the queue.
+        """
+        server = ctx.message.server
+        state = self.get_voice_state(server)
+
+        if state.is_playing():
+            player = state.player
+            player.stop()
+
+        try:
+            state.audio_player.cancel()
+            del self.voice_states[server.id]
+            await state.voice.disconnect()
+        except:
+            pass
     
-client.run(yeet_token)
+    @commands.command(pass_context=True, no_pm=True)
+    async def kaz(self,ctx):
+        summoned_channel = ctx.message.author.voice_channel
+        if summoned_channel is None:
+            await self.bot.say('You are not in a voice channel.')
+            return False
+        state = self.get_voice_state(ctx.message.server)
+        if state.voice is None:
+            state.voice = await self.bot.join_voice_channel(summoned_channel)
+        else:
+            await state.voice.move_to(summoned_channel)
+        voice = state.voice
+        player = voice.create_ffmpeg_player('kaz.mp3')
+        player.volume = 0.5
+        player.start()
+
+        return True
+
+
+#@bot.event
+#async def on_message(message):
+#    if message.content.startswith('!shutup'):
+#        await bot.send_message(message.channel, '@SVINT#4084 shut up.')
+#    elif message.content.startswith('yah'):
+#        await bot.send_message(message.channel, 'yeet')
+#    elif message.content.startswith('!ting'):
+#        await bot.send_message(message.channel, 'the ting go skrrra! pa pa ka ka ka!')
+#    elif message.content.startswith('hol up'):
+#        await bot.send_message(message.channel, 'we dem boyz')
+#        time.sleep(1)
+#        await bot.send_message(message.channel, 'we makin noise')
+#    elif message.content.startswith('stfu'):
+#        await bot.send_message(message.channel, 'ok')
+#    elif message.content.startswith('patriots'):
+#        await bot.send_message(message.channel, 'play video')
+
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='Meme bot')
+bot.add_cog(Music(bot))
+
+@bot.event
+async def on_ready():
+    print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
+
+bot.run(yeet_token)
