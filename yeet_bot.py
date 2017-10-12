@@ -15,6 +15,7 @@ if not discord.opus.is_loaded():
     # note that on windows this DLL is automatically provided for you
     discord.opus.load_opus('opus')
 
+
 class VoiceEntry:
     def __init__(self, message, player):
         self.requester = message.author
@@ -158,8 +159,6 @@ class Music:
 
         return True
 
-bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='A playlist example for discord.py')
-bot.add_cog(Music(bot))
 
 #@bot.event
 #async def on_message(message):
@@ -177,6 +176,9 @@ bot.add_cog(Music(bot))
 #        await bot.send_message(message.channel, 'ok')
 #    elif message.content.startswith('patriots'):
 #        await bot.send_message(message.channel, 'play video')
+
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='Meme bot')
+bot.add_cog(Music(bot))
 
 @bot.event
 async def on_ready():
