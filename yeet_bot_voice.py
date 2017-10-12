@@ -1,4 +1,8 @@
 import asyncio
+import time
+import random
+import pickle
+import os
 import discord
 from discord.ext import commands
 import sys
@@ -6,6 +10,7 @@ sys.path.insert(0, 'D:/Daniel/Documents/Discord/bot_ids')
 
 import yeet_bot_id
 from yeet_bot_id import yeet_token
+
 
 if not discord.opus.is_loaded():
     # the 'opus' library here is opus.dll on windows
@@ -106,6 +111,7 @@ class Music:
             await self.bot.say('This is not a voice channel...')
         else:
             await self.bot.say('Ready to play audio in ' + channel.name)
+
 
     @commands.command(pass_context=True, no_pm=True)
     async def summon(self, ctx):
@@ -225,6 +231,12 @@ class Music:
         else:
             await self.bot.say('You have already voted to skip this song.')
 
+@commands.command(pass_context=True, no_pm=True)
+async def kaz(self,ctx,channel: discord.Channel):
+    voice = await bot.join_voice_channel(channel)
+    player = voice.create_ffmpeg_player('kaz.mp3')
+    player.start()
+
     @commands.command(pass_context=True, no_pm=True)
     async def playing(self, ctx):
         """Shows info about the currently played song."""
@@ -235,13 +247,6 @@ class Music:
         else:
             skip_count = len(state.skip_votes)
             await self.bot.say('Now playing {} [skips: {}/3]'.format(state.current, skip_count))
-    
-    @commands.command(pass_context=True, no_pm=True)
-    async def kaz(self,ctx,channel: discord.Channel):
-        voice = await bot.join_voice_channel(channel)
-        player = voice.create_ffmpeg_player('kaz.mp3')
-        player.start()
-
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='A playlist example for discord.py')
 bot.add_cog(Music(bot))
@@ -263,8 +268,12 @@ async def on_message(message):
     elif message.content.startswith('patriots'):
         await bot.send_message(message.channel, 'play video')
 
+
 @bot.event
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
-
+    print('Logged in as')
+    print(client.user.name)
+    print(client.user.id)
+    print('--------')
 bot.run(yeet_token)
