@@ -1,9 +1,6 @@
 import asyncio
 import discord
 from discord.ext import commands
-import sys
-sys.path.insert(0, 'D:/Daniel/Documents/Discord/bot_ids')
-
 import yeet_bot_id
 from yeet_bot_id import yeet_token
 

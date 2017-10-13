@@ -98,5 +98,5 @@ ENV/
 # mypy
 .mypy_cache/
 
-# Ignore these directories
-bot_ids
+# Ignore these files
+yeet_bot_id.py
