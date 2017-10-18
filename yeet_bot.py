@@ -13,7 +13,6 @@ if not discord.opus.is_loaded():
     # note that on windows this DLL is automatically provided for you
     discord.opus.load_opus('opus')
 
-
 class VoiceEntry:
     def __init__(self, message, player):
         self.requester = message.author
@@ -140,7 +139,7 @@ class Music:
             pass
     
     @commands.command(pass_context=True, no_pm=True)
-    async def kaz(self,ctx):
+    async def patriots(self,ctx):
         summoned_channel = ctx.message.author.voice_channel
         if summoned_channel is None:
             await self.bot.say('You are not in a voice channel.')
@@ -156,24 +155,6 @@ class Music:
         player.start()
 
         return True
-
-
-#@bot.event
-#async def on_message(message):
-#    if message.content.startswith('!shutup'):
-#        await bot.send_message(message.channel, '@SVINT#4084 shut up.')
-#    elif message.content.startswith('yah'):
-#        await bot.send_message(message.channel, 'yeet')
-#    elif message.content.startswith('!ting'):
-#        await bot.send_message(message.channel, 'the ting go skrrra! pa pa ka ka ka!')
-#    elif message.content.startswith('hol up'):
-#        await bot.send_message(message.channel, 'we dem boyz')
-#        time.sleep(1)
-#        await bot.send_message(message.channel, 'we makin noise')
-#    elif message.content.startswith('stfu'):
-#        await bot.send_message(message.channel, 'ok')
-#    elif message.content.startswith('patriots'):
-#        await bot.send_message(message.channel, 'play video')
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='Meme bot')
 bot.add_cog(Music(bot))
