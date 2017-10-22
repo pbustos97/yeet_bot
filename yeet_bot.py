@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import sys
 import asyncio
 import discord
 from discord.ext import commands
@@ -155,6 +156,9 @@ class Music:
         player.start()
 
         return True
+    @commands.command(pass_context=True, no_pm=True)
+    async def return0(self,ctx):
+        sys.exit(0)
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='Meme bot')
 bot.add_cog(Music(bot))

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import sys
 import asyncio
 import discord
 from discord.ext import commands
@@ -22,8 +23,8 @@ async def on_message(message):
         await bot.send_message(message.channel, 'we makin noise')
     elif message.content.startswith('stfu'):
         await bot.send_message(message.channel, 'ok')
-    elif message.content.startswith('patriots'):
-        await bot.send_message(message.channel, 'play video')
+    elif message.content.startswith('return0'):
+        await sys.exit(0)
 
 @bot.event
 async def on_ready():
