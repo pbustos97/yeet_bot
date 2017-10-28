@@ -157,7 +157,7 @@ class Music:
 
         return True
 
-        @commands.command(pass_context=True, no_pm=True)
+    @commands.command(pass_context=True, no_pm=True)
     async def sins(self,ctx):
         summoned_channel = ctx.message.author.voice_channel
         if summoned_channel is None:
