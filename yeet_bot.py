@@ -156,6 +156,25 @@ class Music:
         player.start()
 
         return True
+
+        @commands.command(pass_context=True, no_pm=True)
+    async def sins(self,ctx):
+        summoned_channel = ctx.message.author.voice_channel
+        if summoned_channel is None:
+            await self.bot.say('You are not in a voice channel.')
+            return False
+        state = self.get_voice_state(ctx.message.server)
+        if state.voice is None:
+            state.voice = await self.bot.join_voice_channel(summoned_channel)
+        else:
+            await state.voice.move_to(summoned_channel)
+        voice = state.voice
+        player = voice.create_ffmpeg_player('sins.mp3')
+        player.volume = 0.5
+        player.start()
+
+        return True
+
     @commands.command(pass_context=True, no_pm=True)
     async def return0(self,ctx):
         sys.exit(0)
