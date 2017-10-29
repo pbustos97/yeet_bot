@@ -100,3 +100,5 @@ ENV/
 
 # Ignore these files
 yeet_bot_id.py
+*.m4a
+*.mp3
