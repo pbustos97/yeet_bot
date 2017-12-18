@@ -4,10 +4,10 @@ import asyncio
 import discord
 from discord.ext import commands
 import yeet_bot_id
-from yeet_bot_id import yeet_token
+from yeet_bot_id import yeet_txt_token
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='Meme bot')
-bot.add_cog(Music(bot))
+#bot.add_cog(Music(bot))
 
 @bot.event
 async def on_message(message):
@@ -25,7 +25,9 @@ async def on_message(message):
         await bot.send_message(message.channel, 'ok')
     elif message.content.startswith('return0'):
         await sys.exit(0)
-
+    elif message.content.startswith('trader'):
+        UserAuthor = message.author
+        await bot.send_message(message.channel, '{0.author.mention} is now a trader'.format(message))
 @bot.event
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
