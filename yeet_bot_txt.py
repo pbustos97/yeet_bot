@@ -24,8 +24,6 @@ async def on_message(message):
         await bot.send_message(message.channel, 'we makin noise')
     elif message.content.startswith('stfu'):
         await bot.send_message(message.channel, 'ok')
-    elif message.content.startswith('return0'):
-        await sys.exit(0)
     elif message.content.startswith('trader'):
         await bot.send_message(message.channel, '{0.author.mention} is now a trader'.format(message))
     elif message.content.startswith('8ball'):
