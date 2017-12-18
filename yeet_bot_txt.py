@@ -2,6 +2,7 @@
 import sys
 import asyncio
 import discord
+import random
 from discord.ext import commands
 import yeet_bot_id
 from yeet_bot_id import yeet_txt_token
@@ -26,8 +27,17 @@ async def on_message(message):
     elif message.content.startswith('return0'):
         await sys.exit(0)
     elif message.content.startswith('trader'):
-        UserAuthor = message.author
         await bot.send_message(message.channel, '{0.author.mention} is now a trader'.format(message))
+    elif message.content.startswith('8ball'):
+        rando = random.randint(0,3)
+        if(rando == 1):
+            await bot.send_message(message.channel, '{0.author.mention} no'.format(message))
+        elif(rando == 0):
+            await bot.send_message(message.channel, '{0.author.mention} yes'.format(message))
+        elif(rando == 2):
+            await bot.send_message(message.channel, '{0.author.mention} maybe'.format(message))
+        elif(rando == 3):
+            await bot.send_message(message.channel, '{0.author.mention} fuk u'.format(message))
 @bot.event
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
