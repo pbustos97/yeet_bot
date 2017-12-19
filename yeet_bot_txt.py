@@ -12,8 +12,8 @@ bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='
 
 @bot.event
 async def on_message(message):
-    if message.content.startswith('!shutup'):
-        await bot.send_message(message.channel, '@SVINT#4084 shut up.')
+    if message.content.startswith('shutup'):
+        await bot.send_message(message.channel, 'No you shut up, {0.author.mention}'.format(message))
     elif message.content.startswith('yah'):
         await bot.send_message(message.channel, 'yeet')
     elif message.content.startswith('!ting'):
