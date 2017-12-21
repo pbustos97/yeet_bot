@@ -27,7 +27,7 @@ async def on_message(message):
     elif message.content.startswith('trader'):
         await bot.send_message(message.channel, '{0.author.mention} is now a trader'.format(message))
     elif message.content.startswith('8ball'):
-        rando = random.randint(0,3)
+        rando = random.randint(0,5)
         if(rando == 1):
             await bot.send_message(message.channel, '{0.author.mention} no'.format(message))
         elif(rando == 0):
@@ -36,6 +36,10 @@ async def on_message(message):
             await bot.send_message(message.channel, '{0.author.mention} maybe'.format(message))
         elif(rando == 3):
             await bot.send_message(message.channel, '{0.author.mention} fuk u'.format(message))
+        elif(rando == 4):
+            await bot.send_message(message.channel, '{0.author.mention} never'.format(message))
+        elif(rando == 5):
+            await bot.send_message(message.channel, '{0.author.mention} always'.format(message))
     elif message.content.startswith('http') or message.content.startswith('www'):
         rando = random.randint(0,3)
         if (rando == 0):
