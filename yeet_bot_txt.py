@@ -3,6 +3,7 @@ import sys
 import asyncio
 import discord
 import random
+import time
 from discord.ext import commands
 import yeet_bot_id
 from yeet_bot_id import yeet_txt_token
@@ -28,7 +29,12 @@ async def on_message(message):
         await bot.send_message(message.channel, '{0.author.mention} is now a trader'.format(message))
     elif message.content.startswith('8ball'):
         rando = random.randint(0,5)
-        if(rando == 1):
+        if 'or' in message.content:
+            string = message.content.split(" ")
+            await bot.send_message(message.channel, string[1].format(message))
+            string.pop(0)
+            await bot.send_message(message.channel, string)
+        elif(rando == 1):
             await bot.send_message(message.channel, '{0.author.mention} no'.format(message))
         elif(rando == 0):
             await bot.send_message(message.channel, '{0.author.mention} yes'.format(message))
