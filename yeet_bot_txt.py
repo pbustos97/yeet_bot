@@ -30,10 +30,12 @@ async def on_message(message):
     elif message.content.startswith('8ball'):
         rando = random.randint(0,5)
         if 'or' in message.content:
-            string = message.content.split(" ")
-            await bot.send_message(message.channel, string[1].format(message))
-            string.pop(0)
-            await bot.send_message(message.channel, string)
+            string = message.content.split("or")
+            string[0] = string[0].replace("8ball", " ")
+            size = len(string)
+            size -= 1
+            rando = random.randint(0,size)
+            await bot.send_message(message.channel, string[rando])
         elif(rando == 1):
             await bot.send_message(message.channel, '{0.author.mention} no'.format(message))
         elif(rando == 0):
