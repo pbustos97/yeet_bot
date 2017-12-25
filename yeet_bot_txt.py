@@ -30,7 +30,7 @@ async def on_message(message):
     elif message.content.startswith('8ball'):
         rando = random.randint(0,5)
         if 'or' in message.content:
-            string = message.content.split("or")
+            string = message.content.split(" or ")
             string[0] = string[0].replace("8ball", " ")
             size = len(string)
             size -= 1
@@ -51,13 +51,13 @@ async def on_message(message):
     elif message.content.startswith('http') or message.content.startswith('www'):
         rando = random.randint(0,3)
         if (rando == 0):
-            await bot.send_message(message.channel, '{0.author.mention} you sent something <:weenie:313002452045660172>'.format(message))
+            await bot.send_message(message.channel, 'you sent something <:weenie:313002452045660172>'.format(message))
         elif (rando == 1):
-            await bot.send_message(message.channel, '{0.author.mention} I aint clickin that sus ass link <:christucker:375486748018343938>'.format(message))
+            await bot.send_message(message.channel, 'I aint clickin that sus ass link <:christucker:375486748018343938>'.format(message))
         elif (rando == 2):
-            await bot.send_message(message.channel, '{0.author.mention} I hope it\'s porn <:dram:313002361847152640>'.format(message))
+            await bot.send_message(message.channel, 'I hope it\'s porn <:dram:313002361847152640>'.format(message))
         elif (rando == 3):
-            await bot.send_message(message.channel, '{0.author.mention} lit!'.format(message))
+            await bot.send_message(message.channel, 'lit!'.format(message))
 @bot.event
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
