@@ -29,7 +29,7 @@ async def on_message(message):
         await bot.send_message(message.channel, '{0.author.mention} is now a trader'.format(message))
     elif message.content.startswith('8ball'):
         rando = random.randint(0,5)
-        if 'or' in message.content:
+        if ' or ' in message.content:
             string = message.content.split(" or ")
             string[0] = string[0].replace("8ball", " ")
             size = len(string)
