@@ -51,13 +51,13 @@ async def on_message(message):
     elif message.content.startswith('http') or message.content.startswith('www'):
         rando = random.randint(0,3)
         if (rando == 0):
-            await bot.send_message(message.channel, 'you sent something <:weenie:313002452045660172>'.format(message))
+            await bot.send_message(message.channel, 'You sent something <:weenie:313002452045660172>'.format(message))
         elif (rando == 1):
             await bot.send_message(message.channel, 'I aint clickin that sus ass link <:christucker:375486748018343938>'.format(message))
         elif (rando == 2):
-            await bot.send_message(message.channel, 'I hope it\'s porn <:dram:313002361847152640>'.format(message))
+            await bot.send_message(message.channel, 'I hope it\'s a giveaway <:dram:313002361847152640>'.format(message))
         elif (rando == 3):
-            await bot.send_message(message.channel, 'lit!'.format(message))
+            await bot.send_message(message.channel, 'Lit!'.format(message))
 @bot.event
 async def on_ready():
     print('Logged in as:\n{0} (ID: {0.id})'.format(bot.user))
