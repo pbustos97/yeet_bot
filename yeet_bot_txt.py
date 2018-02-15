@@ -48,7 +48,7 @@ async def on_message(message):
             await bot.send_message(message.channel, '{0.author.mention} never'.format(message))
         elif(rando == 5):
             await bot.send_message(message.channel, '{0.author.mention} always'.format(message))
-    elif message.content.startswith('http') or message.content.startswith('www'):
+    elif 'http://' in message.content and ('.com' in message.content or '.org' in message.content or '.net' in message.content or '.be' in message.content):
         rando = random.randint(0,3)
         if (rando == 0):
             await bot.send_message(message.channel, 'You sent something <:weenie:313002452045660172>'.format(message))
