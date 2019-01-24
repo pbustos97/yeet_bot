@@ -10,6 +10,7 @@ from yeet_bot_id import yeet_txt_token
 from yeet_bot_id import response8Ball
 from yeet_bot_id import botDict
 from yeet_bot_id import linkResponse
+from yeet_bot_id import botCaller
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='Meme bot')
 
@@ -18,11 +19,11 @@ async def on_message(message):
     msg = message.content.split()
     if msg[0] in botDict:
         await bot.send_message(message.channel, botDict.get(msg[0]).format(message))
-    elif message.content.startswith('8ball'):
+    elif message.content.startswith(botCaller):
         rando = random.randint(0,len(response8Ball))
         if ' or ' in message.content:
             string = message.content.split(" or ")
-            string[0] = string[0].replace("8ball", " ")
+            string[0] = string[0].replace(string[0], " ")
             size = len(string)
             size -= 1
             rando = random.randint(0,size)
