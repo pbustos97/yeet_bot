@@ -28,7 +28,7 @@ async def on_message(message):
             size -= 1
             rando = random.randint(0,size)
             await bot.send_message(message.channel, string[rando])
-        elif(rando < len(response8Ball) and rando >= 0):
+        else:
             response = '{0.author.mention} ' + response8Ball[rando]
             await bot.send_message(message.channel, response.format(message))
     elif ('http' in message.content or 'www' in message.content) and ('.com' in message.content or '.org' in message.content or '.net' in message.content or '.be' in message.content):
