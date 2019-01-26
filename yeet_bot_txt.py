@@ -20,10 +20,10 @@ async def on_message(message):
     if msg[0] in botDict:
         await bot.send_message(message.channel, botDict.get(msg[0]).format(message))
     elif message.content.startswith(botCaller):
-        rando = random.randint(0,len(response8Ball))
+        rando = random.randint(0,len(response8Ball)-1)
         if ' or ' in message.content:
             string = message.content.split(" or ")
-            string[0] = string[0].replace(string[0], " ")
+            string[0] = string[0].replace(botCaller, " ")
             size = len(string)
             size -= 1
             rando = random.randint(0,size)
