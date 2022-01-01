@@ -19,8 +19,12 @@ bot = commands.Bot(command_prefix=commands.when_mentioned_or('$'), description='
 def caller(message, author):
     msg = message.content.split()
     msg = msg[1:]
-    if len(msg) > 1 and ' or ' in message.content:
-        string = message.content.split(" or ")
+    if len(msg) > 1 and (' or ' in message.content or ';' in message.content):
+        string = ''
+        if ' or ' in message.content:
+            string = message.content.split(" or ")
+        if ';' in message.content:
+            string = message.content.split(";")
         string[0] = string[0].replace(botCaller, " ")
         size = len(string)
         size -= 1
